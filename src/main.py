@@ -8,9 +8,9 @@ class Graph:
                       for _ in range(vertices)]
 
     def print_solution(self, dist):
-        print("Vértice  Distância da Origem")
+        print("Vértice | Distância da Origem")
         for i in range(self.V):
-            print(i, "\t", dist[i])
+            print(i, "\t|\t", dist[i])
 
     def min_distance(self, dist, sptSet):
         min_dis = sys.maxsize
@@ -21,10 +21,10 @@ class Graph:
                 min_index = u
         return min_index
 
-    def dijkstra(self, src, objetivo):
+    def dijkstra(self, raiz, objetivo):
         caminho = []
         dist = [sys.maxsize] * self.V
-        dist[src] = 0
+        dist[raiz] = 0
         spt_set = [False] * self.V
         for cout in range(self.V):
             x = self.min_distance(dist, spt_set)
@@ -35,12 +35,12 @@ class Graph:
                     caminho.append([x, y, dist[y]])
         self.print_solution(dist)
         caminho.reverse()
-        self.caminho(caminho, objetivo)
+        self.caminho(caminho, raiz,objetivo)
 
-    def caminho(self, caminho, objetivo):
+    def caminho(self, caminho, raiz, objetivo):
         aux = []
         origem = -1
-        while not origem == 0:
+        while not origem == raiz:
             for i in range(len(caminho)):
                 if caminho[i][1] == objetivo:
                     aux.append(caminho[i])
